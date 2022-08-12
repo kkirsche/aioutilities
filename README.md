@@ -1,4 +1,4 @@
-# asynciopool
+# aioutilities
 
 `asyncio`-powered coroutine worker pool. No more juggling bounded semaphores and annoying timeouts, and allows you to run through millions of pieces of data efficiently.
 
@@ -7,14 +7,15 @@
 TBD — May need to rename project to get it in pip
 
 # Credits
-This is refactored and built on top of https://github.com/CaliDog/asyncpool
+
+# This is refactored and built on top of https://github.com/CaliDog/asyncpool
 
 # Example Usage
 
 ```python
 from asyncio import Queue, ensure_future, run, sleep
 
-from asynciopool.pool import asynciopool
+from aioutilities.pool import aioutilities
 
 
 async def example_coro(initial_number: int, result_queue: Queue[int]) -> None:
@@ -38,7 +39,7 @@ async def example() -> None:
 
     # Start a worker pool with 10 coroutines, invokes `example_coro` and waits for
     # it to complete or 5 minutes to pass.
-    pool = asynciopool[int](
+    pool = aioutilities[int](
         name="ExamplePool",
         task=example_coro,
         worker_qty=10,
