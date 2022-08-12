@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "asyncio-powered coroutine worker pool"
 license = "MIT"
 authors = ["Kevin Kirsche <kev.kirsche@gmail.com>"]
+include = ["README.md", "LICENSE"]
 
 [[tool.poetry.packages]]
 from = "src"
