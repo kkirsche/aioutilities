@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aioutilities"
-version = "1.0.0"
+version = "1.0.1"
 description = "asyncio-powered coroutine worker pool"
 license = "MIT"
 authors = ["Kevin Kirsche <kev.kirsche@gmail.com>"]
