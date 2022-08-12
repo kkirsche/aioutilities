@@ -8,13 +8,13 @@ from logging import Logger, getLogger
 from types import TracebackType
 from typing import Any, Generic, TypeVar
 
-from aiopool.task import Task
-from aiopool.terminate import Terminate
+from asynciopool.task import Task
+from asynciopool.terminate import Terminate
 
 _T = TypeVar("_T")
 
 
-class AioPool(Generic[_T]):
+class asynciopool(Generic[_T]):
     _accept_tasks_for: timedelta | None
     _first_task_received_at: datetime | None
     _joined_at: datetime | None
@@ -92,7 +92,7 @@ class AioPool(Generic[_T]):
                 if task_received:
                     self._queue.task_done()
 
-    async def __aenter__(self) -> "AioPool[_T]":
+    async def __aenter__(self) -> "asynciopool[_T]":
         await self.start()
         return self
 
@@ -135,7 +135,7 @@ class AioPool(Generic[_T]):
             raise Exception("Exception occurred in pool %s", self._name)
 
     @asynccontextmanager
-    async def spawn(self) -> AsyncGenerator["AioPool[_T]", None]:
+    async def spawn(self) -> AsyncGenerator["asynciopool[_T]", None]:
         await self.start()
         yield self
         await self.join()

@@ -1,4 +1,4 @@
-from aiopool import __version__
+from asynciopool import __version__
 
 
 def test_version() -> None:

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "aiopool"
+name = "asynciopool"
 version = "0.1.0"
 description = "asyncio-powered coroutine worker pool"
 license = "MIT"
@@ -8,7 +8,7 @@ include = ["README.md", "LICENSE"]
 
 [[tool.poetry.packages]]
 from = "src"
-include = "aiopool"
+include = "asynciopool"
 
 [tool.poetry.dependencies]
 python = ">=3.10, <4"
@@ -25,7 +25,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-aiopool-example = "aiopool.example:run_example"
+asynciopool-example = "asynciopool.example:run_example"
 
 [tool.isort]
 formatter = "example"
