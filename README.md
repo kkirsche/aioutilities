@@ -10,7 +10,7 @@ python -m pip install -U aioutilities
 
 # Credits
 
-# This is refactored and built on top of https://github.com/CaliDog/asyncpool
+This is refactored and built on top of https://github.com/CaliDog/asyncpool
 
 # Example Usage
 
