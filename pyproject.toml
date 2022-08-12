@@ -14,7 +14,7 @@ include = "aioutilities"
 python = ">=3.10, <4"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^7.1.2"
 isort = "^5.10.1"
 example-isort-formatting-plugin = "^0.0.4"
 black = "^22.6.0"

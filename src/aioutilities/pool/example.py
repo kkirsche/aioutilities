@@ -1,6 +1,6 @@
 from asyncio import Queue, ensure_future, run, sleep
 
-from aioutilities.pool import aioutilities
+from aioutilities.pool.pool import AioPool
 
 
 async def example_coro(initial_number: int, result_queue: Queue[int]) -> None:
@@ -24,7 +24,7 @@ async def example() -> None:
 
     # Start a worker pool with 10 coroutines, invokes `example_coro` and waits for
     # it to complete or 5 minutes to pass.
-    pool = aioutilities[int](
+    pool = AioPool[int](
         name="ExamplePool",
         task=example_coro,
         worker_qty=10,

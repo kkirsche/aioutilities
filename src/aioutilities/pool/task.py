@@ -5,6 +5,8 @@ _T = TypeVar("_T")
 
 
 class Task(Generic[_T]):
+    """An individual task for a worker."""
+
     future: Future[_T]
     args: tuple[Any, ...]
     kwargs: dict[str, Any]
