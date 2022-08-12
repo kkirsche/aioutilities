@@ -1,4 +1,5 @@
 from asyncio import Queue, ensure_future, run, sleep
+from typing import Union
 
 from aioutilities.pool.pool import AioPool
 
@@ -10,7 +11,7 @@ async def example_coro(initial_number: int, result_queue: Queue[int]) -> None:
     await result_queue.put(initial_number * 2)
 
 
-async def result_reader(queue: Queue[int | None]) -> None:
+async def result_reader(queue: Queue[Union[int, None]]) -> None:
     while True:
         value = await queue.get()
         if value is None:
@@ -19,7 +20,7 @@ async def result_reader(queue: Queue[int | None]) -> None:
 
 
 async def example() -> None:
-    result_queue = Queue[int | None]()
+    result_queue = Queue[Union[int, None]]()
     reader_future = ensure_future(result_reader(result_queue))
 
     # Start a worker pool with 10 coroutines, invokes `example_coro` and waits for

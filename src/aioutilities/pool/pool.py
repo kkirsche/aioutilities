@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 from logging import Logger, getLogger
 from types import TracebackType
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, List, Optional, Type, TypeVar, Union
 
 from aioutilities.pool.task import Task
 from aioutilities.pool.terminate import Terminate
@@ -17,18 +17,18 @@ _T = TypeVar("_T")
 class AioPool(Generic[_T]):
     """The asyncio worker pool implementation."""
 
-    _accept_tasks_for: timedelta | None
-    _first_task_received_at: datetime | None
-    _joined_at: datetime | None
+    _accept_tasks_for: Optional[timedelta]
+    _first_task_received_at: Optional[datetime]
+    _joined_at: Optional[datetime]
     _logger: Logger
     _loop: AbstractEventLoop
     _name: str
-    _queue: Queue[Task[_T] | Terminate]
+    _queue: Queue[Union[Task[_T], Terminate]]
     _raise_on_join: bool
-    _started_at: datetime | None
-    _timeout: float | int
+    _started_at: Optional[datetime]
+    _timeout: Union[float, int]
     _worker_qty: int
-    _workers: list[AsyncIOTask[None]] | None
+    _workers: Optional[List[AsyncIOTask[None]]]
     exceptions: bool
     total_queued: int
 
@@ -37,10 +37,10 @@ class AioPool(Generic[_T]):
         name: str,
         task: Callable[..., Any],
         worker_qty: int = 4,
-        timeout: float | int = 300,
+        timeout: Union[float, int] = 300,
         raise_on_join: bool = True,
-        accept_tasks_for: timedelta | None = None,
-        loop: AbstractEventLoop | None = None,
+        accept_tasks_for: Optional[timedelta] = None,
+        loop: Optional[AbstractEventLoop] = None,
     ) -> None:
         self._accept_tasks_for = accept_tasks_for
         self._first_task_received_at = None
@@ -60,7 +60,7 @@ class AioPool(Generic[_T]):
     async def _worker_loop(self) -> None:
         """The loop workers will execute until they are terminated."""
         while True:
-            task: Task[_T] | Terminate | None = None
+            task: Optional[Union[Task[_T], Terminate]] = None
             task_received = False
             try:
                 task = await self._queue.get()
@@ -100,9 +100,9 @@ class AioPool(Generic[_T]):
 
     async def __aexit__(
         self,
-        exc_type: type[BaseException] | None,
-        exc_val: BaseException | None,
-        exc_tb: TracebackType | None,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
     ) -> None:
         await self.join()
 
