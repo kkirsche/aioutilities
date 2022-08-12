@@ -4,9 +4,10 @@
 
 # Installation
 
-```
-pip install asynciopool
-```
+TBD — May need to rename project to get it in pip
+
+# Credits
+This is refactored and built on top of https://github.com/CaliDog/asyncpool
 
 # Example Usage
 
